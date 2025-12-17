@@ -13,147 +13,31 @@
       font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
     }
     body {
-      background-color: #f8f9fa;
+      background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
       color: #202124;
-      display: flex;
       min-height: 100vh;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 260px;
-      background-color: white;
-      border-right: 1px solid #e0e0e0;
-      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-    }
-    .logo {
-      font-size: 22px;
-      font-weight: 500;
-      color: #34A853;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .logo i {
-      font-size: 24px;
-    }
-    .nav-item {
-      padding: 10px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .nav-item:hover {
-      background-color: #f1f3f4;
-    }
-    .nav-item.active {
-      background-color: #e8f0fe;
-      color: #1a73e8;
     }
 
-    /* Main Content */
-    .main {
-      flex: 1;
+    /* Auth & Main Container */
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
       padding: 24px;
-      overflow-y: auto;
-    }
-    .header {
+      flex: 1;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-    .greeting h1 {
-      font-size: 24px;
-      font-weight: 500;
-      color: #202124;
-    }
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: #8ab4f8;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
+      flex-direction: column;
     }
 
-    /* Cards */
-    .section-title {
-      font-size: 18px;
-      font-weight: 500;
-      margin-bottom: 16px;
-      color: #5f6368;
-    }
-    .locations-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
-    }
-    .location-card {
-      background: white;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 16px;
-      cursor: pointer;
-      transition: box-shadow 0.2s;
-    }
-    .location-card:hover {
-      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-    }
-    .location-card.selected {
-      border-color: #34A853;
-      box-shadow: 0 2px 6px rgba(52, 168, 83, 0.2);
-    }
-    .location-card h3 {
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 4px;
-      color: #202124;
-    }
-    .location-card p {
-      font-size: 14px;
-      color: #5f6368;
-    }
-    .status-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 6px;
-    }
-    .dot-green { background: #34A853; }
-    .dot-gray { background: #9aa0a6; }
-
-    /* Auth Screens */
-    .auth-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #f8f9fa;
-    }
+    /* Auth Card */
     .auth-card {
       background: white;
       border-radius: 12px;
-      box-shadow: 0 1px 10px rgba(60,64,67,0.3);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
       padding: 32px;
-      width: 100%;
-      max-width: 400px;
+      margin-top: 40px;
     }
     .auth-card h2 {
       font-size: 24px;
@@ -213,12 +97,83 @@
       text-decoration: none;
       font-weight: 500;
     }
+
+    /* Dashboard Header */
+    .dashboard-header {
+      text-align: center;
+      margin: 32px 0;
+    }
+    .dashboard-header h1 {
+      font-size: 28px;
+      font-weight: 500;
+      color: #1f2937;
+    }
+
+    /* Locations Grid */
+    .locations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .location-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px 20px;
+      width: 240px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: 2px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+
+    .location-card.occupied {
+      border-color: #34A853;
+      background-color: #f0fdf4;
+    }
+
+    .location-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #1f2937;
+    }
+    .location-card p {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .occupancy-status {
+      margin-top: 12px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.green { background: #34A853; }
+    .dot.gray { background: #94a3b8; }
+
     .hidden { display: none; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: #64748b;
+    }
   </style>
 </head>
 <body>
-  <!-- Auth Screens -->
-  <div id="authScreen" class="auth-container">
+  <!-- Login -->
+  <div id="loginScreen" class="container">
     <div class="auth-card">
       <h2>Log Masuk ke Sistem Keberadaan</h2>
       <div class="form-group">
@@ -240,7 +195,8 @@
     </div>
   </div>
 
-  <div id="signupScreen" class="auth-container hidden">
+  <!-- Signup -->
+  <div id="signupScreen" class="container hidden">
     <div class="auth-card">
       <h2>Daftar Guru</h2>
       <div class="form-group">
@@ -272,33 +228,20 @@
     </div>
   </div>
 
-  <!-- Main App -->
-  <div id="app" class="hidden">
-    <div class="sidebar">
-      <div class="logo">
-        <span>🏫</span> GuruHadhir
-      </div>
-      <div class="nav-item active">Keberadaan</div>
-      <div class="nav-item">Temujanji</div>
-      <div class="nav-item">Profil</div>
+  <!-- Dashboard -->
+  <div id="dashboard" class="container hidden">
+    <div class="dashboard-header">
+      <h1>Sistem Keberadaan Guru – Hari Ini</h1>
     </div>
 
-    <div class="main">
-      <div class="header">
-        <div class="greeting">
-          <h1>Selamat datang, <span id="userName">Cikgu X</span></h1>
-        </div>
-        <div class="user-info">
-          <div class="user-avatar" id="userInitial">C</div>
-        </div>
-      </div>
-
-      <div class="section-title">Pilih Lokasi Keberadaan Anda</div>
-      <div class="locations-grid" id="locationsGrid">
-        <!-- Lokasi dijana oleh JS -->
-      </div>
+    <div class="locations-grid" id="locationsGrid">
+      <!-- Lokasi akan dijana oleh JS -->
     </div>
   </div>
+
+  <footer>
+    © 2025 Sistem Keberadaan Guru | Sekolah XYZ
+  </footer>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -318,6 +261,7 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
+    // Lokasi tetap (boleh tambah sebanyak mana)
     const LOCATIONS = [
       { id: 'A1', name: 'Bilik 1', block: 'Bangunan A' },
       { id: 'A2', name: 'Bilik 2', block: 'Bangunan A' },
@@ -330,27 +274,29 @@
       { id: 'D1', name: 'Pejabat Guru', block: 'Bangunan D' },
     ];
 
-    // UI
+    // Simulasi contoh data: guru sedang berada di A1 dan B2
+    const SAMPLE_OCCUPANCY = {
+      'A1': { occupied: true, by: 'Cikgu Ali' },
+      'B2': { occupied: true, by: 'Cikgu Siti' },
+      // Lain-lain dianggap kosong
+    };
+
+    // UI Switch
     function showLogin() {
-      document.getElementById('authScreen').classList.remove('hidden');
+      document.getElementById('loginScreen').classList.remove('hidden');
       document.getElementById('signupScreen').classList.add('hidden');
-      document.getElementById('app').classList.add('hidden');
+      document.getElementById('dashboard').classList.add('hidden');
     }
     function showSignup() {
-      document.getElementById('authScreen').classList.add('hidden');
+      document.getElementById('loginScreen').classList.add('hidden');
       document.getElementById('signupScreen').classList.remove('hidden');
-      document.getElementById('app').classList.add('hidden');
+      document.getElementById('dashboard').classList.add('hidden');
     }
-    function showApp(user) {
-      document.getElementById('authScreen').classList.add('hidden');
+    function showDashboard() {
+      document.getElementById('loginScreen').classList.add('hidden');
       document.getElementById('signupScreen').classList.add('hidden');
-      document.getElementById('app').classList.remove('hidden');
-
-      const name = user.displayName || user.email.split('@')[0];
-      document.getElementById('userName').innerText = name;
-      document.getElementById('userInitial').innerText = name.charAt(0).toUpperCase();
-
-      renderLocations(user.uid);
+      document.getElementById('dashboard').classList.remove('hidden');
+      renderLocations();
     }
 
     // Auth
@@ -364,7 +310,7 @@
         .then(userCred => userCred.user.updateProfile({ displayName: name })
           .then(() => db.collection('users').doc(userCred.user.uid).set({ name, email, subject, role: 'teacher' }))
         )
-        .then(() => alert('Pendaftaran berjaya!'))
+        .then(() => showDashboard())
         .catch(err => alert('Ralat: ' + err.message));
     }
 
@@ -372,52 +318,41 @@
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
       auth.signInWithEmailAndPassword(email, password)
+        .then(() => showDashboard())
         .catch(err => alert('Ralat: ' + err.message));
     }
 
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider).catch(err => alert('Ralat Google: ' + err.message));
+      auth.signInWithPopup(provider)
+        .then(() => showDashboard())
+        .catch(err => alert('Ralat Google: ' + err.message));
     }
 
-    function logout() {
-      auth.signOut().then(() => showLogin());
-    }
-
-    // Lokasi
-    function renderLocations(uid) {
+    // Lokasi dengan status "ada orang"
+    function renderLocations() {
       const grid = document.getElementById('locationsGrid');
       grid.innerHTML = '';
 
-      db.collection('userLocations').doc(uid).get().then(doc => {
-        const current = doc.exists ? doc.data().locationId : '';
-        LOCATIONS.forEach(loc => {
-          const el = document.createElement('div');
-          el.className = `location-card ${current === loc.id ? 'selected' : ''}`;
-          el.innerHTML = `
-            <h3>${loc.name}</h3>
-            <p>${loc.block}</p>
-          `;
-          el.onclick = () => selectLocation(uid, loc.id);
-          grid.appendChild(el);
-        });
-      });
-    }
-
-    function selectLocation(uid, locId) {
-      db.collection('userLocations').doc(uid).set({
-        locationId: locId,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
-        renderLocations(uid);
-        const loc = LOCATIONS.find(l => l.id === locId);
-        alert(`✅ Kini berada di: ${loc.name} (${loc.block})`);
+      LOCATIONS.forEach(loc => {
+        const info = SAMPLE_OCCUPANCY[loc.id] || { occupied: false };
+        const card = document.createElement('div');
+        card.className = `location-card ${info.occupied ? 'occupied' : ''}`;
+        card.innerHTML = `
+          <h3>${loc.name}</h3>
+          <p>${loc.block}</p>
+          <div class="occupancy-status">
+            <span class="dot ${info.occupied ? 'green' : 'gray'}"></span>
+            ${info.occupied ? `Digunakan oleh ${info.by}` : 'Kosong'}
+          </div>
+        `;
+        grid.appendChild(card);
       });
     }
 
     // Auth state
     auth.onAuthStateChanged(user => {
-      if (user) showApp(user);
+      if (user) showDashboard();
       else showLogin();
     });
   </script>
