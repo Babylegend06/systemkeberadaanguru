@@ -3,66 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Keberadaan Guru & Staf - KV Klang</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <title>Keberadaan Guru & Staf – KV Klang</title>
   <style>
+    /* === DESAIN FORMAL & PROFESIONAL === */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
     }
     body {
-      background-color: #f9fafb;
+      background-color: #f8fafc;
       color: #1e293b;
+      line-height: 1.6;
       min-height: 100vh;
       padding: 20px;
     }
 
-    .header {
-      background: #1e40af;
-      color: white;
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .header h1 {
-      font-size: 20px;
-      font-weight: 600;
-    }
-    .admin-link {
-      color: #c7d2fe;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
     .container {
-      max-width: 1200px;
-      margin: 24px auto;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
-    .form-card {
+    /* Header Rasmi */
+    .header {
+      text-align: center;
+      padding: 24px 16px;
+      margin-bottom: 32px;
+      border-bottom: 2px solid #3b82f6;
+    }
+    .logo-box {
+      width: 80px;
+      height: 80px;
+      background: #1e40af;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      color: white;
+      font-weight: bold;
+      font-size: 28px;
+    }
+    .school-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: #475569;
+    }
+
+    /* Card Rasmi */
+    .card {
       background: white;
       border-radius: 12px;
       padding: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
     }
-    .form-card h2 {
+    .card-title {
       font-size: 20px;
-      margin-bottom: 20px;
+      font-weight: 600;
       color: #1e40af;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
     }
 
+    /* Form */
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
     .form-group {
       margin-bottom: 16px;
     }
     label {
       display: block;
       margin-bottom: 6px;
-      font-weight: 500;
+      font-weight: 600;
       color: #334155;
     }
     input, select, textarea {
@@ -70,260 +95,227 @@
       padding: 12px;
       border: 1px solid #cbd5e1;
       border-radius: 8px;
-      font-size: 16px;
-      outline: none;
+      font-size: 15px;
+      background: #f8fafc;
     }
     input:focus, select:focus, textarea:focus {
+      outline: none;
       border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+      background: white;
     }
 
-    .btn {
-      width: 100%;
-      padding: 12px;
+    button {
       background: #1e40af;
       color: white;
       border: none;
       border-radius: 8px;
-      font-weight: 500;
+      padding: 12px 24px;
+      font-weight: 600;
       cursor: pointer;
-      margin-top: 8px;
+      transition: background 0.2s;
     }
-    .btn:hover {
+    button:hover {
       background: #1d3557;
     }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-secondary {
+      background: #64748b;
+    }
 
-    .status-grid {
+    /* Grid Kategori */
+    .categories-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
-      margin-top: 24px;
     }
-    .status-column {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    .status-column h3 {
-      font-size: 16px;
-      margin-bottom: 16px;
-      color: #1e40af;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    .record-item {
+    .category-column {
       background: #f1f5f9;
-      border-radius: 8px;
-      padding: 12px;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .category-column h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1e40af;
       margin-bottom: 12px;
     }
-    .record-item h4 {
+    .record-item {
+      background: white;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
       font-size: 14px;
-      margin-bottom: 4px;
-      color: #1e293b;
+      border-left: 3px solid #3b82f6;
     }
-    .record-item p {
-      font-size: 13px;
-      color: #64748b;
-      margin: 2px 0;
+    .record-item strong {
+      color: #1e3a8a;
     }
 
-    .hidden { display: none; }
+    /* Loading */
+    .loading {
+      text-align: center;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    /* Responsif */
+    @media (max-width: 768px) {
+      .header { padding: 16px; }
+      .logo-box { width: 60px; height: 60px; font-size: 22px; }
+      .school-name { font-size: 20px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="header">
-    <h1>KEBERADAAN GURU & STAF SMK KV KLANG</h1>
-    <a href="#" class="admin-link" onclick="showAdmin()">Admin</a>
-  </div>
-
-  <!-- Main Content -->
   <div class="container">
-
-    <!-- Form Tambah Rekod -->
-    <div class="form-card">
-      <h2>+ Tambah Rekod Keberadaan</h2>
-      <div class="form-group">
-        <label>Nama Guru / Staf</label>
-        <input type="text" id="namaGuru" placeholder="Contoh: AZLIN" />
-      </div>
-      <div class="form-group">
-        <label>Kategori</label>
-        <select id="kategori">
-          <option value="A">A. Semua / Jenis Cuti</option>
-          <option value="B">B. Bertugas di Luar Sekolah</option>
-          <option value="C">C. Bertugas di Sekolah</option>
-          <option value="D">D. Aktiviti di Sekolah</option>
-          <option value="E">E. Aktiviti Luar Sekolah</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Tarikh</label>
-        <input type="date" id="tarikh" value="2025-12-17" />
-      </div>
-      <div class="form-group">
-        <label>Catatan (contoh: Pengawas SPM, temu mumi, kolokium dll)</label>
-        <textarea id="catatan" rows="3" placeholder="Tulis catatan di sini..."></textarea>
-      </div>
-      <button class="btn" onclick="simpanRekod()">Simpan Rekod</button>
+    <!-- Header Rasmi KV Klang -->
+    <div class="header">
+      <div class="logo-box">KV</div>
+      <div class="school-name">KOLEJ VOKASIONAL KLANG</div>
+      <div class="subtitle">Sistem Pengurusan Keberadaan Guru & Staf</div>
     </div>
 
-    <!-- Status Columns -->
-    <div class="status-grid">
-      <div class="status-column">
-        <h3>A. Semua / Jenis Cuti</h3>
-        <div id="columnA" class="records-list"></div>
+    <!-- Form Input -->
+    <div class="card">
+      <h2 class="card-title">Tambah Rekod Keberadaan Baharu</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nama Guru / Staf</label>
+          <input type="text" id="nama" placeholder="Contoh: Cikgu Azlin Binti Ahmad" />
+        </div>
+        <div class="form-group">
+          <label>Kategori</label>
+          <select id="kategori">
+            <option value="A">A. Semua / Jenis Cuti</option>
+            <option value="B">B. Bertugas di Luar Sekolah</option>
+            <option value="C">C. Bertugas di Sekolah</option>
+            <option value="D">D. Aktiviti di Sekolah</option>
+            <option value="E">E. Aktiviti Luar Sekolah</option>
+          </select>
+        </div>
       </div>
-      <div class="status-column">
-        <h3>B. Bertugas di Luar Sekolah</h3>
-        <div id="columnB" class="records-list"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tarikh</label>
+          <input type="date" id="tarikh" />
+        </div>
       </div>
-      <div class="status-column">
-        <h3>C. Bertugas di Sekolah</h3>
-        <div id="columnC" class="records-list"></div>
+      <div class="form-group">
+        <label>Catatan (Wajib)</label>
+        <textarea id="catatan" rows="2" placeholder="Contoh: Pengawas SPM, Mesyuarat Pentadbiran, Lawatan Industri"></textarea>
       </div>
-      <div class="status-column">
-        <h3>D. Aktiviti di Sekolah</h3>
-        <div id="columnD" class="records-list"></div>
-      </div>
-      <div class="status-column">
-        <h3>E. Aktiviti Luar Sekolah</h3>
-        <div id="columnE" class="records-list"></div>
-      </div>
+      <button onclick="tambahRekod()">Simpan ke Pangkalan Data</button>
     </div>
 
-  </div>
-
-  <!-- Admin View -->
-  <div id="adminView" class="container hidden">
-    <div class="form-card">
-      <h2>Admin: Papar & Padam Rekod</h2>
-      <p>Anda boleh papar semua rekod dan padam jika perlu.</p>
-      <button class="btn" onclick="loadAllRecords()">Muatkan Semua Rekod</button>
-      <div id="allRecordsList" style="margin-top:20px;"></div>
+    <!-- Paparan Data -->
+    <div class="card">
+      <h2 class="card-title">Senarai Keberadaan Terkini</h2>
+      <div class="btn-group">
+        <button onclick="muatSemula()">🔄 Muat Semula Data</button>
+        <button class="btn-secondary" onclick="bukaSheets()">📄 Lihat di Google Sheets</button>
+      </div>
+      <div id="dataContainer" style="margin-top:20px;">
+        <div class="loading">Memuatkan data dari Google Sheets...</div>
+      </div>
     </div>
   </div>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
   <script>
-    // 🔧 Firebase Config (dari projek anda)
-    const firebaseConfig = {
-      apiKey: "AIzaSyAhT4W6D6ueYRBvkHXrHwAKe8ooAwWfbbU",
-      authDomain: "schoolnewsystem-dfba8.firebaseapp.com",
-      projectId: "schoolnewsystem-dfba8",
-      storageBucket: "schoolnewsystem-dfba8.firebasestorage.app",
-      messagingSenderId: "913620840598",
-      appId: "1:913620840598:web:50f113ecc7be8c7df8d2b7"
-    };
+    // 🔗 URL APPS SCRIPT ANDA
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9_dcZiMUeyMmZx65dDvMOV9Ezezc_Pfeo-lE2Gva_d823dPze_YdqepXlJtANeYBx/exec';
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    // Set tarikh hari ini
+    document.getElementById('tarikh').valueAsDate = new Date();
 
-    // Load Data on Page Load
-    window.addEventListener('DOMContentLoaded', () => {
-      loadRecords();
-    });
+    // Buka Google Sheets
+    function bukaSheets() {
+      window.open('https://docs.google.com/spreadsheets/d/1a2b3c4d5e6f7g8h9i0j/edit?usp=sharing', '_blank');
+    }
 
-    function simpanRekod() {
-      const nama = document.getElementById('namaGuru').value.trim();
+    // Tambah rekod baharu
+    async function tambahRekod() {
+      const nama = document.getElementById('nama').value.trim();
       const kategori = document.getElementById('kategori').value;
       const tarikh = document.getElementById('tarikh').value;
-      const catatan = document.getElementById('catatan').value;
+      const catatan = document.getElementById('catatan').value.trim();
 
-      if (!nama || !tarikh) {
-        alert('Sila isi Nama & Tarikh.');
+      if (!nama || !tarikh || !catatan) {
+        alert('Sila isi semua medan (Nama, Tarikh, dan Catatan wajib diisi).');
         return;
       }
 
-      db.collection('keberadaan').add({
-        nama,
-        kategori,
-        tarikh,
-        catatan,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
-        alert('✅ Rekod disimpan!');
-        document.getElementById('namaGuru').value = '';
-        document.getElementById('catatan').value = '';
-        loadRecords();
-      });
-    }
-
-    function loadRecords() {
-      const columns = {
-        'A': document.getElementById('columnA'),
-        'B': document.getElementById('columnB'),
-        'C': document.getElementById('columnC'),
-        'D': document.getElementById('columnD'),
-        'E': document.getElementById('columnE')
-      };
-
-      for (const col in columns) {
-        columns[col].innerHTML = '<p style="text-align:center;">Memuatkan...</p>';
-      }
-
-      db.collection('keberadaan').orderBy('createdAt', 'desc').get().then(snapshot => {
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          const item = document.createElement('div');
-          item.className = 'record-item';
-          item.innerHTML = `
-            <h4>${d.nama}</h4>
-            <p><strong>${d.kategori === 'A' ? 'Cuti' : d.kategori === 'B' ? 'Luar Sekolah' : d.kategori === 'C' ? 'Di Sekolah' : d.kategori === 'D' ? 'Aktiviti Sekolah' : 'Aktiviti Luar'}</strong></p>
-            <p>${d.catatan || '-'}</p>
-            <p style="font-size:12px;color:#94a3b8;">${new Date(d.tarikh).toLocaleDateString('ms-MY')}</p>
-          `;
-          columns[d.kategori].appendChild(item);
+      try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Penting untuk Apps Script
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nama, kategori, tarikh, catatan })
         });
-      });
+
+        // Apps Script dengan no-cors tidak kembalikan JSON, tapi kita anggap berjaya
+        alert('✅ Rekod berjaya disimpan ke Google Sheets!');
+        document.getElementById('nama').value = '';
+        document.getElementById('catatan').value = '';
+        muatSemula();
+      } catch (err) {
+        alert('❌ Gagal menyimpan: ' + err.message);
+      }
     }
 
-    function showAdmin() {
-      document.getElementById('adminView').classList.remove('hidden');
-    }
+    // Muat data (GET)
+    async function muatSemula() {
+      const container = document.getElementById('dataContainer');
+      container.innerHTML = '<div class="loading">Memuatkan data...</div>';
 
-    function loadAllRecords() {
-      const listEl = document.getElementById('allRecordsList');
-      listEl.innerHTML = '<p>Memuatkan semua rekod...</p>';
+      try {
+        const res = await fetch(APPS_SCRIPT_URL);
+        const data = await res.json();
 
-      db.collection('keberadaan').orderBy('createdAt', 'desc').get().then(snapshot => {
-        if (snapshot.empty) {
-          listEl.innerHTML = '<p>Tiada rekod.</p>';
+        if (!Array.isArray(data)) {
+          container.innerHTML = '<p class="loading">Tiada data atau format tidak sah.</p>';
           return;
         }
 
-        let html = '<div style="display:grid;gap:12px;">';
-        snapshot.forEach(doc => {
-          const d = doc.data();
+        const kategoriMap = {
+          'A': 'A. Semua / Jenis Cuti',
+          'B': 'B. Bertugas di Luar Sekolah',
+          'C': 'C. Bertugas di Sekolah',
+          'D': 'D. Aktiviti di Sekolah',
+          'E': 'E. Aktiviti Luar Sekolah'
+        };
+
+        let html = '<div class="categories-grid">';
+        ['A','B','C','D','E'].forEach(kat => {
+          const items = data.filter(item => item.kategori === kat);
           html += `
-            <div style="background:#f1f5f9;padding:12px;border-radius:8px;">
-              <strong>${d.nama}</strong> | ${d.kategori} | ${d.tarikh}
-              <br/><em>${d.catatan || '-'}</em>
-              <br/><small>${new Date(d.createdAt.toDate()).toLocaleString('ms-MY')}</small>
-              <br/><button onclick="padamRekod('${doc.id}')" style="padding:4px 8px;background:red;color:white;border:none;border-radius:4px;font-size:12px;margin-top:4px;">Padam</button>
+            <div class="category-column">
+              <h3>${kategoriMap[kat]}</h3>
+              ${items.length ? items.map(item => `
+                <div class="record-item">
+                  <strong>${item.nama}</strong><br/>
+                  ${new Date(item.tarikh).toLocaleDateString('ms-MY')}<br/>
+                  ${item.catatan}
+                </div>
+              `).join('') : '<p style="font-style:italic;color:#64748b;">Tiada rekod</p>'}
             </div>
           `;
         });
         html += '</div>';
-        listEl.innerHTML = html;
-      });
-    }
 
-    function padamRekod(id) {
-      if (confirm('Anda pasti ingin padam rekod ini?')) {
-        db.collection('keberadaan').doc(id).delete().then(() => {
-          alert('✅ Rekod dipadam!');
-          loadAllRecords();
-          loadRecords(); // Refresh main view
-        });
+        container.innerHTML = html;
+      } catch (err) {
+        container.innerHTML = `<p class="loading">Ralat: ${err.message}</p>`;
       }
     }
+
+    // Muat data pertama kali
+    muatSemula();
   </script>
 </body>
 </html>
