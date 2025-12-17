@@ -4,159 +4,171 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistem Keberadaan Guru</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto&display=swap">
+  <link rel="stylesheet" href=" https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     body {
-      background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
-      color: #202124;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
       min-height: 100vh;
       padding: 20px;
+      overflow-x: hidden;
     }
-    .container {
+
+    .glass-container {
       max-width: 1000px;
       margin: 0 auto;
     }
-    header {
+
+    .header-glass {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 28px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #e2e8f0;
     }
-    header h1 {
+    .header-glass h1 {
       font-size: 24px;
-      color: #1e293b;
+      font-weight: 600;
     }
-    .profile-btn {
-      background: #1a73e8;
+    .profile-btn, .admin-btn {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      padding: 8px 18px;
       color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
+      transition: background 0.2s;
+    }
+    .profile-btn:hover, .admin-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
 
-    /* Buildings */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    .glass-card h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
     .buildings-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-      margin-bottom: 32px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
     }
-    .building-card {
-      background: white;
-      border-radius: 12px;
+    .building-item {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      text-align: center;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, background 0.2s;
     }
-    .building-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    .building-item:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-4px);
     }
-    .building-card h3 {
+    .building-item h3 {
       font-size: 18px;
-      margin-bottom: 12px;
-      color: #1e293b;
+      margin-bottom: 8px;
     }
-    .building-card p {
+    .building-item p {
       font-size: 14px;
-      color: #64748b;
+      opacity: 0.9;
     }
 
-    /* Rooms Panel */
-    .rooms-panel {
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-      margin-bottom: 32px;
-    }
-    .rooms-panel h2 {
-      margin-bottom: 20px;
-      color: #1e293b;
-    }
     .rooms-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 16px;
     }
-    .room-card {
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
-      border-radius: 10px;
+    .room-item {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
       padding: 16px;
       text-align: center;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .room-card:hover, .room-card.selected {
-      border-color: #34A853;
-      background: #f0fdf4;
+    .room-item:hover, .room-item.selected {
+      border-color: rgba(100, 255, 200, 0.7);
+      background: rgba(100, 255, 200, 0.1);
     }
-    .room-card h4 {
+    .room-item h4 {
       font-size: 16px;
       margin-bottom: 6px;
-      color: #1e293b;
-    }
-    .room-status {
-      font-size: 12px;
-      color: #64748b;
     }
 
-    /* Appointment Form */
-    .appointment-form {
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-    }
-    .appointment-form h2 {
-      margin-bottom: 20px;
-      color: #1e293b;
-    }
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     label {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       font-weight: 500;
-      color: #475569;
+      opacity: 0.95;
     }
     input, select {
       width: 100%;
-      padding: 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      color: white;
       font-size: 16px;
+      outline: none;
+    }
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    input:focus, select:focus {
+      border-color: rgba(100, 200, 255, 0.8);
+      background: rgba(255, 255, 255, 0.2);
     }
     button {
-      background: #1a73e8;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: 500;
-      cursor: pointer;
       width: 100%;
+      padding: 14px;
+      background: rgba(100, 200, 255, 0.3);
+      border: 1px solid rgba(100, 200, 255, 0.4);
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: rgba(100, 200, 255, 0.45);
     }
 
-    /* Modal */
     .modal {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -164,68 +176,77 @@
       padding: 20px;
     }
     .modal-content {
-      background: white;
-      border-radius: 12px;
+      background: rgba(30, 30, 40, 0.85);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
       width: 100%;
-      max-width: 500px;
-      padding: 24px;
+      max-width: 480px;
+      padding: 30px;
+      color: white;
     }
     .modal h2 {
-      margin-bottom: 20px;
-      color: #1e293b;
+      margin-bottom: 24px;
+      font-size: 22px;
     }
     .close {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      font-size: 24px;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
       cursor: pointer;
-      color: #94a3b8;
+      opacity: 0.7;
+    }
+    .close:hover {
+      opacity: 1;
     }
 
     .hidden { display: none; }
   </style>
 </head>
 <body>
-  <div class="container" id="mainApp">
-    <!-- Header -->
-    <header>
+
+  <!-- Main App -->
+  <div class="glass-container" id="mainApp" class="hidden">
+    <div class="header-glass">
       <h1 id="welcomeText">Hello, Selamat Datang!</h1>
-      <button class="profile-btn" onclick="openProfile()">Profil</button>
-    </header>
-
-    <!-- Bangunan -->
-    <h2>Bangunan Sekolah</h2>
-    <div class="buildings-grid" id="buildingsGrid">
-      <!-- Akan diisi oleh JS -->
-    </div>
-
-    <!-- Bilik (sembunyi mula-mula) -->
-    <div id="roomsSection" class="hidden">
-      <div class="rooms-panel">
-        <h2 id="roomsTitle">Bilik di [Bangunan]</h2>
-        <div class="rooms-grid" id="roomsGrid">
-          <!-- Akan diisi oleh JS -->
-        </div>
+      <div>
+        <button class="profile-btn" onclick="openProfile()">Profil</button>
+        <button class="admin-btn" id="adminBtn" onclick="toggleAdminView()" style="display:none; margin-left:10px;">Admin</button>
       </div>
     </div>
 
-    <!-- Temujanji -->
-    <div class="appointment-form">
+    <div class="glass-card">
+      <h2>Bangunan Sekolah</h2>
+      <div class="buildings-grid" id="buildingsGrid"></div>
+    </div>
+
+    <div id="roomsSection" class="glass-card hidden">
+      <h2 id="roomsTitle">Pilih Bilik</h2>
+      <div class="rooms-grid" id="roomsGrid"></div>
+    </div>
+
+    <div class="glass-card">
       <h2>Buat Temujanji</h2>
       <div class="form-group">
         <label>Nama Pelajar / Ibu Bapa</label>
-        <input type="text" id="apptName" placeholder="Ali bin Abu" />
+        <input type="text" id="apptName" placeholder="Contoh: Ali bin Abu" />
       </div>
       <div class="form-group">
         <label>Tarikh & Masa</label>
         <input type="datetime-local" id="apptTime" />
       </div>
       <div class="form-group">
-        <label>Tujuan</label>
+        <label>Tujuan Temujanji</label>
         <input type="text" id="apptReason" placeholder="Bincang prestasi pelajar" />
       </div>
       <button onclick="createAppointment()">Simpan Temujanji</button>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="glass-card hidden">
+      <h2>Dashboard Admin – Senarai Guru</h2>
+      <div id="guruList" class="buildings-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;"></div>
     </div>
   </div>
 
@@ -233,10 +254,10 @@
   <div id="profileModal" class="modal hidden">
     <div class="modal-content">
       <span class="close" onclick="closeProfile()">&times;</span>
-      <h2>Edit Profil</h2>
+      <h2>Edit Profil Anda</h2>
       <div class="form-group">
         <label>Nama Penuh</label>
-        <input type="text" id="editName" />
+        <input type="text" id="editName" placeholder="Nama anda" />
       </div>
       <div class="form-group">
         <label>Email</label>
@@ -256,10 +277,10 @@
     </div>
   </div>
 
-  <!-- Auth Screens (Login/Signup) -->
-  <div id="authScreen" class="container">
-    <div style="max-width:400px;margin:80px auto;background:white;padding:32px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.1);">
-      <h2 style="margin-bottom:24px;">Log Masuk</h2>
+  <!-- Auth Screens -->
+  <div id="authScreen" class="glass-container">
+    <div class="glass-card" style="max-width:420px;margin:80px auto;">
+      <h2 style="text-align:center;margin-bottom:24px;">Log Masuk</h2>
       <div class="form-group">
         <label>Email</label>
         <input type="email" id="loginEmail" placeholder="guru@sekolah.edu.my" />
@@ -269,26 +290,26 @@
         <input type="password" id="loginPassword" placeholder="******" />
       </div>
       <button onclick="login()">Log Masuk</button>
-      <div style="text-align:center;margin-top:16px;">
-        Belum daftar? <a href="#" onclick="showSignup()" style="color:#1a73e8;">Daftar</a>
+      <div style="text-align:center;margin-top:16px;font-size:14px;">
+        Belum daftar? <a href="#" onclick="showSignup()" style="color:#a0cfff;text-decoration:underline;">Daftar Sekarang</a>
       </div>
     </div>
   </div>
 
-  <div id="signupScreen" class="container hidden">
-    <div style="max-width:400px;margin:80px auto;background:white;padding:32px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.1);">
-      <h2 style="margin-bottom:24px;">Daftar Guru</h2>
+  <div id="signupScreen" class="glass-container hidden">
+    <div class="glass-card" style="max-width:420px;margin:80px auto;">
+      <h2 style="text-align:center;margin-bottom:24px;">Daftar Guru</h2>
       <div class="form-group">
-        <label>Nama</label>
-        <input type="text" id="signupName" />
+        <label>Nama Penuh</label>
+        <input type="text" id="signupName" placeholder="Cikgu Aminah" />
       </div>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" id="signupEmail" />
+        <input type="email" id="signupEmail" placeholder="aminah@sekolah.edu.my" />
       </div>
       <div class="form-group">
         <label>Kata Laluan</label>
-        <input type="password" id="signupPassword" />
+        <input type="password" id="signupPassword" placeholder="******" />
       </div>
       <div class="form-group">
         <label>Subjek</label>
@@ -304,13 +325,13 @@
     </div>
   </div>
 
-  <!-- Firebase -->
+  <!-- Firebase SDK (CDN - Compat Mode) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
   <script>
-    // 🔥 Firebase Config
+    // 🔥 Firebase Config (dari projek anda)
     const firebaseConfig = {
       apiKey: "AIzaSyAhT4W6D6ueYRBvkHXrHwAKe8ooAwWfbbU",
       authDomain: "schoolnewsystem-dfba8.firebaseapp.com",
@@ -319,11 +340,11 @@
       messagingSenderId: "913620840598",
       appId: "1:913620840598:web:50f113ecc7be8c7df8d2b7"
     };
+
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // Struktur Bangunan & Bilik
     const BUILDINGS = {
       'Bangunan A': ['Bilik 1', 'Bilik 2', 'Bilik 3'],
       'Bangunan B': ['Bilik 1', 'Bilik 2', 'Bilik 3'],
@@ -332,45 +353,43 @@
     };
 
     let currentUser = null;
-    let currentBuilding = '';
+    let isAdmin = false;
 
-    // UI Switch
+    // UI Helpers
+    const show = id => document.getElementById(id).classList.remove('hidden');
+    const hide = id => document.getElementById(id).classList.add('hidden');
+
     function showMain() {
-      document.getElementById('authScreen').classList.add('hidden');
-      document.getElementById('signupScreen').classList.add('hidden');
-      document.getElementById('mainApp').classList.remove('hidden');
+      hide('authScreen'); hide('signupScreen'); show('mainApp');
     }
     function showAuth() {
-      document.getElementById('authScreen').classList.remove('hidden');
-      document.getElementById('signupScreen').classList.add('hidden');
-      document.getElementById('mainApp').classList.add('hidden');
+      show('authScreen'); hide('signupScreen'); hide('mainApp');
     }
     function showSignup() {
-      document.getElementById('authScreen').classList.add('hidden');
-      document.getElementById('signupScreen').classList.remove('hidden');
+      hide('authScreen'); show('signupScreen'); hide('mainApp');
     }
 
     // Auth
     function signup() {
-      const name = document.getElementById('signupName').value;
-      const email = document.getElementById('signupEmail').value;
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
       const password = document.getElementById('signupPassword').value;
       const subject = document.getElementById('signupSubject').value;
-
+      if (!name || !email || !password) return alert('Sila isi semua medan.');
+      
       auth.createUserWithEmailAndPassword(email, password)
         .then(userCred => {
           return userCred.user.updateProfile({ displayName: name })
-            .then(() => db.collection('users').doc(userCred.user.uid).set({ name, email, subject, role: 'teacher' }));
+            .then(() => db.collection('users').doc(userCred.user.uid).set({
+              name, email, subject, role: 'teacher'
+            }));
         })
-        .then(() => {
-          alert('Pendaftaran berjaya!');
-          initApp();
-        })
+        .then(() => initApp())
         .catch(err => alert('Ralat: ' + err.message));
     }
 
     function login() {
-      const email = document.getElementById('loginEmail').value;
+      const email = document.getElementById('loginEmail').value.trim();
       const password = document.getElementById('loginPassword').value;
       auth.signInWithEmailAndPassword(email, password)
         .then(() => initApp())
@@ -380,70 +399,60 @@
     function initApp() {
       const user = auth.currentUser;
       if (!user) return showAuth();
-
       currentUser = user;
-      document.getElementById('welcomeText').innerText = `Hello, Selamat Datang ${user.displayName || user.email}!`;
+      document.getElementById('welcomeText').innerText = `Hello, Selamat Datang ${user.displayName || user.email.split('@')[0]}!`;
       renderBuildings();
       showMain();
+      checkAdminStatus();
     }
 
-    // Bangunan & Bilik
+    // Build & Rooms
     function renderBuildings() {
       const grid = document.getElementById('buildingsGrid');
       grid.innerHTML = '';
       for (const [name, rooms] of Object.entries(BUILDINGS)) {
-        const div = document.createElement('div');
-        div.className = 'building-card';
-        div.innerHTML = `<h3>${name}</h3><p>${rooms.length} bilik tersedia</p>`;
-        div.onclick = () => showRooms(name, rooms);
-        grid.appendChild(div);
+        const el = document.createElement('div');
+        el.className = 'building-item';
+        el.innerHTML = `<h3>${name}</h3><p>${rooms.length} bilik</p>`;
+        el.onclick = () => showRooms(name, rooms);
+        grid.appendChild(el);
       }
     }
 
-    function showRooms(buildingName, rooms) {
-      currentBuilding = buildingName;
-      document.getElementById('roomsTitle').innerText = `Bilik di ${buildingName}`;
+    function showRooms(building, rooms) {
+      document.getElementById('roomsTitle').innerText = `Pilih Bilik di ${building}`;
       const grid = document.getElementById('roomsGrid');
       grid.innerHTML = '';
       rooms.forEach(room => {
-        const div = document.createElement('div');
-        div.className = 'room-card';
-        div.innerHTML = `<h4>${room}</h4><div class="room-status">Kosong</div>`;
-        div.onclick = () => selectRoom(buildingName, room);
-        grid.appendChild(div);
+        const el = document.createElement('div');
+        el.className = 'room-item';
+        el.innerHTML = `<h4>${room}</h4>`;
+        el.onclick = () => selectRoom(building, room);
+        grid.appendChild(el);
       });
-      document.getElementById('roomsSection').classList.remove('hidden');
+      show('roomsSection');
     }
 
     function selectRoom(building, room) {
-      if (!currentUser) return;
-      const locId = `${building.replace(' ', '')}-${room.replace(/\s+/g, '')}`;
+      const locId = `${building.replace(/\s+/g, '')}-${room.replace(/\s+/g, '')}`;
       db.collection('userLocations').doc(currentUser.uid).set({
-        locationId: locId,
-        building,
-        room,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
-        alert(`✅ Anda kini berada di ${building}, ${room}`);
-      });
+        building, room, locationId: locId, timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => alert(`✅ Kini berada di ${building}, ${room}`));
     }
 
     // Profil
     function openProfile() {
-      if (!currentUser) return;
       db.collection('users').doc(currentUser.uid).get().then(doc => {
         if (doc.exists) {
-          const data = doc.data();
-          document.getElementById('editName').value = data.name || '';
-          document.getElementById('editEmail').value = data.email || '';
-          document.getElementById('editSubject').value = data.subject || 'Matematik';
-          document.getElementById('profileModal').classList.remove('hidden');
+          const d = doc.data();
+          document.getElementById('editName').value = d.name || '';
+          document.getElementById('editEmail').value = d.email || '';
+          document.getElementById('editSubject').value = d.subject || 'Matematik';
+          show('profileModal');
         }
       });
     }
-    function closeProfile() {
-      document.getElementById('profileModal').classList.add('hidden');
-    }
+    function closeProfile() { hide('profileModal'); }
     function saveProfile() {
       const name = document.getElementById('editName').value;
       const subject = document.getElementById('editSubject').value;
@@ -452,19 +461,16 @@
           currentUser.updateProfile({ displayName: name });
           document.getElementById('welcomeText').innerText = `Hello, Selamat Datang ${name}!`;
           closeProfile();
-          alert('Profil dikemaskini!');
+          alert('✅ Profil dikemaskini');
         });
     }
 
-    // Temujanji
+    // Appointment
     function createAppointment() {
-      const name = document.getElementById('apptName').value;
+      const name = document.getElementById('apptName').value.trim();
       const time = document.getElementById('apptTime').value;
-      const reason = document.getElementById('apptReason').value;
-      if (!name || !time || !reason) {
-        alert('Sila isi semua medan.');
-        return;
-      }
+      const reason = document.getElementById('apptReason').value.trim();
+      if (!name || !time || !reason) return alert('Sila isi semua medan.');
       db.collection('appointments').add({
         userId: currentUser.uid,
         name,
@@ -472,14 +478,90 @@
         reason,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(() => {
-        alert('Temujanji disimpan!');
+        alert('✅ Temujanji disimpan');
         document.getElementById('apptName').value = '';
         document.getElementById('apptTime').value = '';
         document.getElementById('apptReason').value = '';
       });
     }
 
-    // Auth state
+    // Admin
+    function checkAdminStatus() {
+      if (!currentUser) return;
+      db.collection('users').doc(currentUser.uid).get().then(doc => {
+        if (doc.exists && doc.data().role === 'admin') {
+          isAdmin = true;
+          document.getElementById('adminBtn').style.display = 'inline-block';
+        }
+      });
+    }
+
+    function toggleAdminView() {
+      const dash = document.getElementById('adminDashboard');
+      if (dash.classList.contains('hidden')) {
+        loadAllGuru();
+        dash.classList.remove('hidden');
+      } else {
+        dash.classList.add('hidden');
+      }
+    }
+
+    function loadAllGuru() {
+      const listEl = document.getElementById('guruList');
+      listEl.innerHTML = '<p style="grid-column:1/-1;text-align:center;">Memuatkan...</p>';
+
+      db.collection('users')
+        .where('role', 'in', ['teacher', 'admin'])
+        .get()
+        .then(userSnap => {
+          if (userSnap.empty) {
+            listEl.innerHTML = '<p style="grid-column:1/-1;text-align:center;">Tiada guru.</p>';
+            return;
+          }
+
+          const promises = [];
+          userSnap.forEach(doc => {
+            promises.push(
+              db.collection('userLocations').doc(doc.id).get().then(locSnap => {
+                let loc = 'Belum tetap';
+                let time = '–';
+                if (locSnap.exists) {
+                  const l = locSnap.data();
+                  loc = `${l.building}, ${l.room}`;
+                  if (l.timestamp) time = l.timestamp.toDate().toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' });
+                }
+                return { uid: doc.id, ...doc.data(), location: loc, lastSeen: time };
+              })
+            );
+          });
+
+          Promise.all(promises).then(gurus => {
+            listEl.innerHTML = gurus.map(g => `
+              <div class="building-item" style="padding:18px;text-align:left;">
+                <h3 style="font-size:18px;margin-bottom:6px;">${g.name}</h3>
+                <p style="font-size:14px;opacity:0.9;">${g.email}</p>
+                <p style="font-size:14px;color:#a0f0c0;margin:8px 0;">📍 ${g.location}</p>
+                <p style="font-size:12px;opacity:0.8;">${g.lastSeen}</p>
+                <button onclick="viewGuruProfile('${g.uid}')" 
+                        style="width:100%;margin-top:12px;padding:6px;font-size:13px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:white;">
+                  Lihat Profil
+                </button>
+              </div>
+            `).join('');
+          });
+        });
+    }
+
+    function viewGuruProfile(uid) {
+      db.collection('users').doc(uid).get().then(doc => {
+        if (doc.exists) {
+          const d = doc.data();
+          alert(`👤 ${d.name}\n✉️ ${d.email}\n📚 ${d.subject}`);
+        }
+      });
+    }
+
+    // Auth State
     auth.onAuthStateChanged(user => {
       if (user) {
         currentUser = user;
