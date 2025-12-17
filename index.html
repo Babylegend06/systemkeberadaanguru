@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sistem Keberadaan Guru</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      padding: 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.9);
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #ff5252;
+    }
+    .switch {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .switch a {
+      color: #ffd166;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .welcome {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .status {
+      background: rgba(0,0,0,0.2);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Auth Screens -->
+    <div id="loginScreen">
+      <h1>Log Masuk Guru</h1>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="contoh@guru.edu.my" />
+      </div>
+      <div class="form-group">
+        <label>Kata Laluan</label>
+        <input type="password" id="loginPassword" placeholder="******" />
+      </div>
+      <button onclick="login()">Log Masuk</button>
+      <div class="switch">Tiada akaun? <a href="#" onclick="showSignup()">Daftar Sekarang</a></div>
+    </div>
+
+    <div id="signupScreen" class="hidden">
+      <h1>Daftar Guru</h1>
+      <div class="form-group">
+        <label>Nama Penuh</label>
+        <input type="text" id="signupName" placeholder="Cikgu Ahmad" />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="signupEmail" placeholder="ahmad@guru.edu.my" />
+      </div>
+      <div class="form-group">
+        <label>Kata Laluan</label>
+        <input type="password" id="signupPassword" placeholder="******" />
+      </div>
+      <div class="form-group">
+        <label>Subjek Diajar</label>
+        <select id="signupSubject">
+          <option value="Matematik">Matematik</option>
+          <option value="Sains">Sains</option>
+          <option value="Bahasa Melayu">Bahasa Melayu</option>
+          <option value="Sejarah">Sejarah</option>
+          <option value="English">English</option>
+        </select>
+      </div>
+      <button onclick="signup()">Daftar</button>
+      <div class="switch">Sudah ada akaun? <a href="#" onclick="showLogin()">Log Masuk</a></div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="hidden">
+      <div class="welcome">
+        <h1>Selamat Datang, <span id="userName">Cikgu X</span>!</h1>
+        <p id="currentTime"></p>
+      </div>
+
+      <div class="status">
+        <h3>Status Keberadaan</h3>
+        <select id="statusSelect" onchange="updateStatus()">
+          <option value="available">✅ Sedia (Di Sekolah)</option>
+          <option value="in-meeting">📆 Dalam Mesyuarat</option>
+          <option value="teaching">👨‍🏫 Mengajar</option>
+          <option value="away">⚠️ Tiada Sementara</option>
+        </select>
+      </div>
+
+      <div class="status">
+        <h3>Buat Temujanji</h3>
+        <div class="form-group">
+          <label>Nama Pelajar/Ibu Bapa</label>
+          <input type="text" id="appointmentName" placeholder="Nama" />
+        </div>
+        <div class="form-group">
+          <label>Tarikh & Masa</label>
+          <input type="datetime-local" id="appointmentTime" />
+        </div>
+        <div class="form-group">
+          <label>Tujuan</label>
+          <input type="text" id="appointmentReason" placeholder="Contoh: Bincang Prestasi" />
+        </div>
+        <button onclick="createAppointment()">Simpan Temujanji</button>
+      </div>
+
+      <div class="status">
+        <h3>Temujanji Hari Ini</h3>
+        <div id="appointmentsList"></div>
+      </div>
+
+      <button onclick="logout()">Log Keluar</button>
+    </div>
+  </div>
+
+  <script>
+    // Simpan data dalam localStorage (untuk demo sahaja)
+    const USERS_KEY = 'guru_users';
+    const APPOINTMENTS_KEY = 'guru_appointments';
+    const STATUS_KEY = 'guru_status';
+
+    // Inisialisasi
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('currentUser')) {
+        showDashboard();
+      } else {
+        showLogin();
+      }
+      updateTime();
+      setInterval(updateTime, 60000);
+    });
+
+    function updateTime() {
+      document.getElementById('currentTime').innerText = new Date().toLocaleString('ms-MY');
+    }
+
+    // UI Switch
+    function showLogin() {
+      document.getElementById('loginScreen').classList.remove('hidden');
+      document.getElementById('signupScreen').classList.add('hidden');
+      document.getElementById('dashboard').classList.add('hidden');
+    }
+    function showSignup() {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('signupScreen').classList.remove('hidden');
+      document.getElementById('dashboard').classList.add('hidden');
+    }
+    function showDashboard() {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      document.getElementById('userName').innerText = user.name;
+      document.getElementById('statusSelect').value = localStorage.getItem(STATUS_KEY) || 'available';
+      loadAppointments();
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('signupScreen').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+    }
+
+    // Auth
+    function signup() {
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const subject = document.getElementById('signupSubject').value;
+
+      if (!name || !email || !password) {
+        alert('Sila isi semua medan.');
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+      if (users.some(u => u.email === email)) {
+        alert('Email sudah didaftar!');
+        return;
+      }
+
+      users.push({ name, email, password, subject });
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+      localStorage.setItem('currentUser', JSON.stringify({ name, email, subject }));
+      alert('Pendaftaran berjaya!');
+      showDashboard();
+    }
+
+    function login() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      const users = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        showDashboard();
+      } else {
+        alert('Email atau kata laluan salah.');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('currentUser');
+      showLogin();
+    }
+
+    // Status
+    function updateStatus() {
+      const status = document.getElementById('statusSelect').value;
+      localStorage.setItem(STATUS_KEY, status);
+      alert('Status dikemaskini!');
+    }
+
+    // Appointments
+    function createAppointment() {
+      const name = document.getElementById('appointmentName').value;
+      const time = document.getElementById('appointmentTime').value;
+      const reason = document.getElementById('appointmentReason').value;
+
+      if (!name || !time || !reason) {
+        alert('Sila isi semua medan temujanji.');
+        return;
+      }
+
+      let appointments = JSON.parse(localStorage.getItem(APPOINTMENTS_KEY) || '[]');
+      appointments.push({ name, time, reason, email: JSON.parse(localStorage.getItem('currentUser')).email });
+      localStorage.setItem(APPOINTMENTS_KEY, JSON.stringify(appointments));
+      alert('Temujanji disimpan!');
+      loadAppointments();
+    }
+
+    function loadAppointments() {
+      const today = new Date().toISOString().split('T')[0];
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      const appointments = JSON.parse(localStorage.getItem(APPOINTMENTS_KEY) || '[]');
+      const todayAppts = appointments.filter(appt =>
+        appt.time.startsWith(today) && appt.email === user.email
+      );
+
+      const listEl = document.getElementById('appointmentsList');
+      if (todayAppts.length === 0) {
+        listEl.innerHTML = '<p>Tiada temujanji hari ini.</p>';
+        return;
+      }
+
+      listEl.innerHTML = todayAppts.map(appt => `
+        <div class="card">
+          <strong>${appt.name}</strong><br/>
+          ${new Date(appt.time).toLocaleString('ms-MY')}<br/>
+          <em>${appt.reason}</em>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>
