@@ -19,7 +19,6 @@
       padding: 0;
     }
 
-    /* Header Google-Style */
     .header {
       display: flex;
       align-items: center;
@@ -28,13 +27,9 @@
       border-bottom: 1px solid #e0e0e0;
       gap: 16px;
     }
-    .logo {
+    .logo img {
       width: 48px;
       height: 48px;
-    }
-    .logo img {
-      width: 100%;
-      height: 100%;
       object-fit: contain;
     }
     .header-content {
@@ -98,12 +93,15 @@
       font-weight: 500;
       cursor: pointer;
       width: 100%;
+      margin-top: 8px;
     }
     button:hover {
       background: #1763c3;
     }
+    .admin-btn {
+      background: #34a853;
+    }
 
-    /* Grid Kategori */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -133,11 +131,13 @@
       display: block;
       color: #1a73e8;
     }
+
+    .hidden { display: none; }
   </style>
 </head>
 <body>
 
-  <!-- Header Google-Style -->
+  <!-- Header -->
   <header class="header">
     <div class="logo">
       <img src="logo.png" alt="Logo KV Klang" />
@@ -174,6 +174,7 @@
         <textarea id="catatan" rows="2" placeholder="Contoh: Pengawas SPM, Mesyuarat"></textarea>
       </div>
       <button onclick="tambahRekod()">Simpan Rekod</button>
+      <button id="exportBtn" class="admin-btn hidden">📥 Export ke Google Sheets</button>
     </div>
 
     <div class="card">
@@ -188,19 +189,34 @@
     </div>
   </div>
 
+  <!-- Firebase SDK (CDN - Compat Mode for Realtime DB) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
   <script>
-    // Set masa semasa & kemas kini setiap saat
+    // 🔥 Firebase Config (dari projek anda)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAhT4W6D6ueYRBvkHXrHwAKe8ooAwWfbbU",
+      authDomain: "schoolnewsystem-dfba8.firebaseapp.com",
+      databaseURL: "https://schoolnewsystem-dfba8-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "schoolnewsystem-dfba8",
+      storageBucket: "schoolnewsystem-dfba8.firebasestorage.app",
+      messagingSenderId: "913620840598",
+      appId: "1:913620840598:web:50f113ecc7be8c7df8d2b7"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    // Masa semasa
     function updateClock() {
       const now = new Date();
       const options = { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        localeMatcher: 'best fit'
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
       };
       document.getElementById('currentTime').textContent = now.toLocaleDateString('ms-MY', options);
     }
@@ -210,10 +226,100 @@
     // Set tarikh hari ini
     document.getElementById('tarikh').valueAsDate = new Date();
 
-    // Anda boleh tambah Firebase di sini jika perlu
-    function tambahRekod() {
-      alert('Fungsi ini boleh disambungkan ke Firebase / Sheets.');
+    // Semak admin
+    let isAdmin = false;
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        db.ref('users/' + user.uid).once('value').then(snapshot => {
+          const data = snapshot.val();
+          isAdmin = data && data.role === 'admin';
+          if (isAdmin) {
+            document.getElementById('exportBtn').classList.remove('hidden');
+          }
+          loadRecords();
+        });
+      } else {
+        loadRecords();
+      }
+    });
+
+    // Muat data keberadaan
+    function loadRecords() {
+      const cols = { 'A': 'colA', 'B': 'colB', 'C': 'colC', 'D': 'colD', 'E': 'colE' };
+      Object.values(cols).forEach(id => {
+        document.getElementById(id).innerHTML = '<p style="font-size:12px;color:#999;">Memuatkan...</p>';
+      });
+
+      db.ref('keberadaan').on('value', snapshot => {
+        Object.values(cols).forEach(id => document.getElementById(id).innerHTML = '');
+        if (!snapshot.exists()) return;
+
+        snapshot.forEach(child => {
+          const d = child.val();
+          if (cols[d.kategori]) {
+            const div = document.createElement('div');
+            div.className = 'record';
+            div.innerHTML = `<strong>${d.nama}</strong><br/>${d.tarikh}<br/>${d.catatan || '-'}`;
+            document.getElementById(cols[d.kategori]).appendChild(div);
+          }
+        });
+      });
     }
+
+    // Tambah rekod
+    function tambahRekod() {
+      const nama = document.getElementById('nama').value.trim();
+      const kategori = document.getElementById('kategori').value;
+      const tarikh = document.getElementById('tarikh').value;
+      const catatan = document.getElementById('catatan').value.trim();
+
+      if (!nama || !tarikh) {
+        alert('Nama & Tarikh wajib diisi.');
+        return;
+      }
+
+      db.ref('keberadaan').push({
+        nama,
+        kategori,
+        tarikh,
+        catatan,
+        timestamp: Date.now()
+      });
+
+      // Kosongkan form
+      document.getElementById('nama').value = '';
+      document.getElementById('catatan').value = '';
+    }
+
+    // Export ke Google Sheets (hanya admin)
+    document.getElementById('exportBtn').onclick = async () => {
+      const snapshot = await db.ref('keberadaan').once('value');
+      if (!snapshot.exists()) {
+        alert('Tiada data untuk dieksport.');
+        return;
+      }
+
+      const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbz2wQsGYqpibshebgzaUcFO733VvjGJHQ5tzU3P50UXDI8BFX2s6BJrz1lhC7hz9GZT/exec';
+
+      try {
+        snapshot.forEach(child => {
+          const data = child.val();
+          // Hantar setiap rekod ke Apps Script
+          fetch(appsScriptUrl, {
+            method: 'POST',
+            mode: 'no-cors', // Apps Script memerlukan ini
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+        });
+        alert('✅ Data berjaya dihantar ke Google Sheets!\nSila semak spreadsheet anda.');
+      } catch (error) {
+        alert('❌ Ralat semasa export: ' + error.message);
+      }
+    };
+
+    // Muat data mula-mula
+    loadRecords();
   </script>
 </body>
 </html>
