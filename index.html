@@ -16,33 +16,113 @@
       background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
       color: #202124;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      padding: 20px;
     }
-
-    /* Auth & Main Container */
     .container {
-      max-width: 900px;
-      width: 100%;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 24px;
-      flex: 1;
+    }
+    header {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    header h1 {
+      font-size: 24px;
+      color: #1e293b;
+    }
+    .profile-btn {
+      background: #1a73e8;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
     }
 
-    /* Auth Card */
-    .auth-card {
+    /* Buildings */
+    .buildings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .building-card {
       background: white;
       border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-      padding: 32px;
-      margin-top: 40px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .auth-card h2 {
-      font-size: 24px;
-      margin-bottom: 24px;
-      color: #202124;
+    .building-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .building-card h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+    .building-card p {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    /* Rooms Panel */
+    .rooms-panel {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      margin-bottom: 32px;
+    }
+    .rooms-panel h2 {
+      margin-bottom: 20px;
+      color: #1e293b;
+    }
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .room-card {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .room-card:hover, .room-card.selected {
+      border-color: #34A853;
+      background: #f0fdf4;
+    }
+    .room-card h4 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: #1e293b;
+    }
+    .room-status {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    /* Appointment Form */
+    .appointment-form {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+    .appointment-form h2 {
+      margin-bottom: 20px;
+      color: #1e293b;
     }
     .form-group {
       margin-bottom: 16px;
@@ -50,132 +130,136 @@
     label {
       display: block;
       margin-bottom: 6px;
-      font-size: 14px;
-      color: #5f6368;
+      font-weight: 500;
+      color: #475569;
     }
     input, select {
       width: 100%;
       padding: 12px;
-      border: 1px solid #dadce0;
-      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
       font-size: 16px;
     }
-    input:focus {
-      outline: none;
-      border-color: #1a73e8;
-      box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
-    }
     button {
-      width: 100%;
-      padding: 12px;
       background: #1a73e8;
       color: white;
       border: none;
-      border-radius: 6px;
-      font-size: 16px;
+      padding: 12px;
+      border-radius: 8px;
       font-weight: 500;
       cursor: pointer;
-      margin-top: 8px;
+      width: 100%;
     }
-    button.google {
-      background: white;
-      color: #3c4043;
-      border: 1px solid #dadce0;
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      z-index: 1000;
+      padding: 20px;
     }
-    .switch-link {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 14px;
-      color: #5f6368;
-    }
-    .switch-link a {
-      color: #1a73e8;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    /* Dashboard Header */
-    .dashboard-header {
-      text-align: center;
-      margin: 32px 0;
-    }
-    .dashboard-header h1 {
-      font-size: 28px;
-      font-weight: 500;
-      color: #1f2937;
-    }
-
-    /* Locations Grid */
-    .locations-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 20px;
-      justify-items: center;
-    }
-
-    .location-card {
+    .modal-content {
       background: white;
       border-radius: 12px;
-      padding: 24px 20px;
-      width: 240px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      border: 2px solid #e2e8f0;
-      transition: all 0.2s;
+      width: 100%;
+      max-width: 500px;
+      padding: 24px;
     }
-
-    .location-card.occupied {
-      border-color: #34A853;
-      background-color: #f0fdf4;
+    .modal h2 {
+      margin-bottom: 20px;
+      color: #1e293b;
     }
-
-    .location-card h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-      color: #1f2937;
+    .close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #94a3b8;
     }
-    .location-card p {
-      font-size: 14px;
-      color: #64748b;
-    }
-
-    .occupancy-status {
-      margin-top: 12px;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .dot.green { background: #34A853; }
-    .dot.gray { background: #94a3b8; }
 
     .hidden { display: none; }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 13px;
-      color: #64748b;
-    }
   </style>
 </head>
 <body>
-  <!-- Login -->
-  <div id="loginScreen" class="container">
-    <div class="auth-card">
-      <h2>Log Masuk ke Sistem Keberadaan</h2>
+  <div class="container" id="mainApp">
+    <!-- Header -->
+    <header>
+      <h1 id="welcomeText">Hello, Selamat Datang!</h1>
+      <button class="profile-btn" onclick="openProfile()">Profil</button>
+    </header>
+
+    <!-- Bangunan -->
+    <h2>Bangunan Sekolah</h2>
+    <div class="buildings-grid" id="buildingsGrid">
+      <!-- Akan diisi oleh JS -->
+    </div>
+
+    <!-- Bilik (sembunyi mula-mula) -->
+    <div id="roomsSection" class="hidden">
+      <div class="rooms-panel">
+        <h2 id="roomsTitle">Bilik di [Bangunan]</h2>
+        <div class="rooms-grid" id="roomsGrid">
+          <!-- Akan diisi oleh JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Temujanji -->
+    <div class="appointment-form">
+      <h2>Buat Temujanji</h2>
+      <div class="form-group">
+        <label>Nama Pelajar / Ibu Bapa</label>
+        <input type="text" id="apptName" placeholder="Ali bin Abu" />
+      </div>
+      <div class="form-group">
+        <label>Tarikh & Masa</label>
+        <input type="datetime-local" id="apptTime" />
+      </div>
+      <div class="form-group">
+        <label>Tujuan</label>
+        <input type="text" id="apptReason" placeholder="Bincang prestasi pelajar" />
+      </div>
+      <button onclick="createAppointment()">Simpan Temujanji</button>
+    </div>
+  </div>
+
+  <!-- Profil Modal -->
+  <div id="profileModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" onclick="closeProfile()">&times;</span>
+      <h2>Edit Profil</h2>
+      <div class="form-group">
+        <label>Nama Penuh</label>
+        <input type="text" id="editName" />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="editEmail" readonly />
+      </div>
+      <div class="form-group">
+        <label>Subjek Diajar</label>
+        <select id="editSubject">
+          <option>Matematik</option>
+          <option>Sains</option>
+          <option>Bahasa Melayu</option>
+          <option>Sejarah</option>
+          <option>English</option>
+        </select>
+      </div>
+      <button onclick="saveProfile()">Simpan Perubahan</button>
+    </div>
+  </div>
+
+  <!-- Auth Screens (Login/Signup) -->
+  <div id="authScreen" class="container">
+    <div style="max-width:400px;margin:80px auto;background:white;padding:32px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.1);">
+      <h2 style="margin-bottom:24px;">Log Masuk</h2>
       <div class="form-group">
         <label>Email</label>
         <input type="email" id="loginEmail" placeholder="guru@sekolah.edu.my" />
@@ -185,31 +269,26 @@
         <input type="password" id="loginPassword" placeholder="******" />
       </div>
       <button onclick="login()">Log Masuk</button>
-      <button class="google" onclick="loginWithGoogle()">
-        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-        Log Masuk dengan Google
-      </button>
-      <div class="switch-link">
-        Belum daftar? <a href="#" onclick="showSignup()">Daftar Sekarang</a>
+      <div style="text-align:center;margin-top:16px;">
+        Belum daftar? <a href="#" onclick="showSignup()" style="color:#1a73e8;">Daftar</a>
       </div>
     </div>
   </div>
 
-  <!-- Signup -->
   <div id="signupScreen" class="container hidden">
-    <div class="auth-card">
-      <h2>Daftar Guru</h2>
+    <div style="max-width:400px;margin:80px auto;background:white;padding:32px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.1);">
+      <h2 style="margin-bottom:24px;">Daftar Guru</h2>
       <div class="form-group">
-        <label>Nama Penuh</label>
-        <input type="text" id="signupName" placeholder="Cikgu Aminah" />
+        <label>Nama</label>
+        <input type="text" id="signupName" />
       </div>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" id="signupEmail" placeholder="aminah@sekolah.edu.my" />
+        <input type="email" id="signupEmail" />
       </div>
       <div class="form-group">
         <label>Kata Laluan</label>
-        <input type="password" id="signupPassword" placeholder="******" />
+        <input type="password" id="signupPassword" />
       </div>
       <div class="form-group">
         <label>Subjek</label>
@@ -222,26 +301,8 @@
         </select>
       </div>
       <button onclick="signup()">Daftar</button>
-      <div class="switch-link">
-        Sudah ada akaun? <a href="#" onclick="showLogin()">Log Masuk</a>
-      </div>
     </div>
   </div>
-
-  <!-- Dashboard -->
-  <div id="dashboard" class="container hidden">
-    <div class="dashboard-header">
-      <h1>Sistem Keberadaan Guru – Hari Ini</h1>
-    </div>
-
-    <div class="locations-grid" id="locationsGrid">
-      <!-- Lokasi akan dijana oleh JS -->
-    </div>
-  </div>
-
-  <footer>
-    © 2025 Sistem Keberadaan Guru | Sekolah XYZ
-  </footer>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -249,6 +310,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
   <script>
+    // 🔥 Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyAhT4W6D6ueYRBvkHXrHwAKe8ooAwWfbbU",
       authDomain: "schoolnewsystem-dfba8.firebaseapp.com",
@@ -261,56 +323,49 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // Lokasi tetap (boleh tambah sebanyak mana)
-    const LOCATIONS = [
-      { id: 'A1', name: 'Bilik 1', block: 'Bangunan A' },
-      { id: 'A2', name: 'Bilik 2', block: 'Bangunan A' },
-      { id: 'A3', name: 'Bilik 3', block: 'Bangunan A' },
-      { id: 'B1', name: 'Bilik 1', block: 'Bangunan B' },
-      { id: 'B2', name: 'Bilik 2', block: 'Bangunan B' },
-      { id: 'B3', name: 'Bilik 3', block: 'Bangunan B' },
-      { id: 'C1', name: 'Makmal Sains', block: 'Bangunan C' },
-      { id: 'C2', name: 'Dewan Mesyuarat', block: 'Bangunan C' },
-      { id: 'D1', name: 'Pejabat Guru', block: 'Bangunan D' },
-    ];
-
-    // Simulasi contoh data: guru sedang berada di A1 dan B2
-    const SAMPLE_OCCUPANCY = {
-      'A1': { occupied: true, by: 'Cikgu Ali' },
-      'B2': { occupied: true, by: 'Cikgu Siti' },
-      // Lain-lain dianggap kosong
+    // Struktur Bangunan & Bilik
+    const BUILDINGS = {
+      'Bangunan A': ['Bilik 1', 'Bilik 2', 'Bilik 3'],
+      'Bangunan B': ['Bilik 1', 'Bilik 2', 'Bilik 3'],
+      'Bangunan C': ['Makmal Sains', 'Dewan Mesyuarat'],
+      'Bangunan D': ['Pejabat Guru']
     };
 
+    let currentUser = null;
+    let currentBuilding = '';
+
     // UI Switch
-    function showLogin() {
-      document.getElementById('loginScreen').classList.remove('hidden');
+    function showMain() {
+      document.getElementById('authScreen').classList.add('hidden');
       document.getElementById('signupScreen').classList.add('hidden');
-      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('mainApp').classList.remove('hidden');
+    }
+    function showAuth() {
+      document.getElementById('authScreen').classList.remove('hidden');
+      document.getElementById('signupScreen').classList.add('hidden');
+      document.getElementById('mainApp').classList.add('hidden');
     }
     function showSignup() {
-      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('authScreen').classList.add('hidden');
       document.getElementById('signupScreen').classList.remove('hidden');
-      document.getElementById('dashboard').classList.add('hidden');
-    }
-    function showDashboard() {
-      document.getElementById('loginScreen').classList.add('hidden');
-      document.getElementById('signupScreen').classList.add('hidden');
-      document.getElementById('dashboard').classList.remove('hidden');
-      renderLocations();
     }
 
     // Auth
     function signup() {
-      const name = document.getElementById('signupName').value.trim();
-      const email = document.getElementById('signupEmail').value.trim();
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
       const password = document.getElementById('signupPassword').value;
       const subject = document.getElementById('signupSubject').value;
 
       auth.createUserWithEmailAndPassword(email, password)
-        .then(userCred => userCred.user.updateProfile({ displayName: name })
-          .then(() => db.collection('users').doc(userCred.user.uid).set({ name, email, subject, role: 'teacher' }))
-        )
-        .then(() => showDashboard())
+        .then(userCred => {
+          return userCred.user.updateProfile({ displayName: name })
+            .then(() => db.collection('users').doc(userCred.user.uid).set({ name, email, subject, role: 'teacher' }));
+        })
+        .then(() => {
+          alert('Pendaftaran berjaya!');
+          initApp();
+        })
         .catch(err => alert('Ralat: ' + err.message));
     }
 
@@ -318,42 +373,120 @@
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
       auth.signInWithEmailAndPassword(email, password)
-        .then(() => showDashboard())
+        .then(() => initApp())
         .catch(err => alert('Ralat: ' + err.message));
     }
 
-    function loginWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .then(() => showDashboard())
-        .catch(err => alert('Ralat Google: ' + err.message));
+    function initApp() {
+      const user = auth.currentUser;
+      if (!user) return showAuth();
+
+      currentUser = user;
+      document.getElementById('welcomeText').innerText = `Hello, Selamat Datang ${user.displayName || user.email}!`;
+      renderBuildings();
+      showMain();
     }
 
-    // Lokasi dengan status "ada orang"
-    function renderLocations() {
-      const grid = document.getElementById('locationsGrid');
+    // Bangunan & Bilik
+    function renderBuildings() {
+      const grid = document.getElementById('buildingsGrid');
       grid.innerHTML = '';
+      for (const [name, rooms] of Object.entries(BUILDINGS)) {
+        const div = document.createElement('div');
+        div.className = 'building-card';
+        div.innerHTML = `<h3>${name}</h3><p>${rooms.length} bilik tersedia</p>`;
+        div.onclick = () => showRooms(name, rooms);
+        grid.appendChild(div);
+      }
+    }
 
-      LOCATIONS.forEach(loc => {
-        const info = SAMPLE_OCCUPANCY[loc.id] || { occupied: false };
-        const card = document.createElement('div');
-        card.className = `location-card ${info.occupied ? 'occupied' : ''}`;
-        card.innerHTML = `
-          <h3>${loc.name}</h3>
-          <p>${loc.block}</p>
-          <div class="occupancy-status">
-            <span class="dot ${info.occupied ? 'green' : 'gray'}"></span>
-            ${info.occupied ? `Digunakan oleh ${info.by}` : 'Kosong'}
-          </div>
-        `;
-        grid.appendChild(card);
+    function showRooms(buildingName, rooms) {
+      currentBuilding = buildingName;
+      document.getElementById('roomsTitle').innerText = `Bilik di ${buildingName}`;
+      const grid = document.getElementById('roomsGrid');
+      grid.innerHTML = '';
+      rooms.forEach(room => {
+        const div = document.createElement('div');
+        div.className = 'room-card';
+        div.innerHTML = `<h4>${room}</h4><div class="room-status">Kosong</div>`;
+        div.onclick = () => selectRoom(buildingName, room);
+        grid.appendChild(div);
+      });
+      document.getElementById('roomsSection').classList.remove('hidden');
+    }
+
+    function selectRoom(building, room) {
+      if (!currentUser) return;
+      const locId = `${building.replace(' ', '')}-${room.replace(/\s+/g, '')}`;
+      db.collection('userLocations').doc(currentUser.uid).set({
+        locationId: locId,
+        building,
+        room,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        alert(`✅ Anda kini berada di ${building}, ${room}`);
+      });
+    }
+
+    // Profil
+    function openProfile() {
+      if (!currentUser) return;
+      db.collection('users').doc(currentUser.uid).get().then(doc => {
+        if (doc.exists) {
+          const data = doc.data();
+          document.getElementById('editName').value = data.name || '';
+          document.getElementById('editEmail').value = data.email || '';
+          document.getElementById('editSubject').value = data.subject || 'Matematik';
+          document.getElementById('profileModal').classList.remove('hidden');
+        }
+      });
+    }
+    function closeProfile() {
+      document.getElementById('profileModal').classList.add('hidden');
+    }
+    function saveProfile() {
+      const name = document.getElementById('editName').value;
+      const subject = document.getElementById('editSubject').value;
+      db.collection('users').doc(currentUser.uid).update({ name, subject })
+        .then(() => {
+          currentUser.updateProfile({ displayName: name });
+          document.getElementById('welcomeText').innerText = `Hello, Selamat Datang ${name}!`;
+          closeProfile();
+          alert('Profil dikemaskini!');
+        });
+    }
+
+    // Temujanji
+    function createAppointment() {
+      const name = document.getElementById('apptName').value;
+      const time = document.getElementById('apptTime').value;
+      const reason = document.getElementById('apptReason').value;
+      if (!name || !time || !reason) {
+        alert('Sila isi semua medan.');
+        return;
+      }
+      db.collection('appointments').add({
+        userId: currentUser.uid,
+        name,
+        time: firebase.firestore.Timestamp.fromDate(new Date(time)),
+        reason,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        alert('Temujanji disimpan!');
+        document.getElementById('apptName').value = '';
+        document.getElementById('apptTime').value = '';
+        document.getElementById('apptReason').value = '';
       });
     }
 
     // Auth state
     auth.onAuthStateChanged(user => {
-      if (user) showDashboard();
-      else showLogin();
+      if (user) {
+        currentUser = user;
+        initApp();
+      } else {
+        showAuth();
+      }
     });
   </script>
 </body>
